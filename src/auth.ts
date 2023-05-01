@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable @typescript-eslint/no-use-before-define */
 // This example demonstrates a NodeJS 8.10 async handler[1], however of course you could use
 // the more traditional callback-style handler.
@@ -6,7 +5,7 @@
 import { getConnection } from '@firestone-hs/aws-lambda-utils';
 import { SecretsManager } from 'aws-sdk';
 import { GetSecretValueRequest, GetSecretValueResponse } from 'aws-sdk/clients/secretsmanager';
-import { decode, JwtPayload } from 'jsonwebtoken';
+import { JwtPayload, decode } from 'jsonwebtoken';
 import fetch from 'node-fetch';
 import SqlString from 'sqlstring';
 import { URLSearchParams } from 'url';
@@ -85,7 +84,7 @@ export default async (event): Promise<any> => {
 		WHERE userName = ${SqlString.escape(decodedJwt.sub)}
 		LIMIT 1
 	`);
-	const isPremium = decodedJwt.sub === 'daedin' ? true : !!queryResult[0] ? queryResult[0].isPremium === 1 : false;
+	const isPremium = decodedJwt.sub === 'daedin' ? true : queryResult[0] ? queryResult[0].isPremium === 1 : false;
 	console.debug('isPremium', isPremium, queryResult);
 
 	const result: AuthInfo = {
