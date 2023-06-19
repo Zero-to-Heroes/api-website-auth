@@ -6,7 +6,6 @@ import { getConnection } from '@firestone-hs/aws-lambda-utils';
 import { SecretsManager } from 'aws-sdk';
 import { GetSecretValueRequest, GetSecretValueResponse } from 'aws-sdk/clients/secretsmanager';
 import { JwtPayload, decode, sign } from 'jsonwebtoken';
-import fetch from 'node-fetch';
 import SqlString from 'sqlstring';
 import { URLSearchParams } from 'url';
 import { AuthInfo } from './model';
@@ -58,7 +57,7 @@ export default async (event): Promise<any> => {
 			'Content-Type': 'application/x-www-form-urlencoded',
 		},
 	});
-	const authResult = await authResponse.json();
+	const authResult: any = await authResponse.json();
 	// console.debug('authResult', authResult);
 
 	if (authResult.error) {
@@ -134,7 +133,7 @@ const generateJwtToken = (userDetails: UserDetails, secret: string): string => {
 };
 
 const getSecret = (secretRequest: GetSecretValueRequest) => {
-	return new Promise<SecretInfo>(resolve => {
+	return new Promise<SecretInfo>((resolve) => {
 		secretsManager.getSecretValue(secretRequest, (err, data: GetSecretValueResponse) => {
 			const secretInfo: SecretInfo = JSON.parse(data.SecretString);
 			resolve(secretInfo);
