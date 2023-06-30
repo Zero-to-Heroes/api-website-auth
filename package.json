@@ -19,7 +19,7 @@
 		"dist/**/*"
 	],
 	"dependencies": {
-		"@firestone-hs/aws-lambda-utils": "^0.0.37",
+		"@firestone-hs/aws-lambda-utils": "^0.0.44",
 		"aws-sdk": "^2.1040.0",
 		"jsonwebtoken": "^9.0.0",
 		"mysql": "^2.17.1",
