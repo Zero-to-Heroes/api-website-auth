@@ -87,6 +87,7 @@ export default async (event): Promise<any> => {
 		WHERE userName = ${SqlString.escape(decodedIdToken.sub)}
 		LIMIT 1
 	`);
+	await mysql.end();
 	const isPremium = decodedIdToken.sub === 'daedin' ? true : queryResult[0] ? queryResult[0].isPremium === 1 : false;
 	// console.debug('isPremium', isPremium, queryResult);
 
